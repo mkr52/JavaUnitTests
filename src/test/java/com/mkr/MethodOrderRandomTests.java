@@ -4,8 +4,14 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-@TestMethodOrder(MethodOrderer.Random.class) // Random order for test execution
+//@TestMethodOrder(MethodOrderer.Random.class) // Random order for test execution
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class MethodOrderRandomTests {
+
+    @Test
+    void testD() {
+        System.out.println("Running test D");
+    }
 
     @Test
     void testA() {
@@ -22,8 +28,4 @@ public class MethodOrderRandomTests {
         System.out.println("Running test C");
     }
 
-    @Test
-    void testD() {
-        System.out.println("Running test D");
-    }
 }
