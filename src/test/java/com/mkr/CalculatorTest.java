@@ -3,6 +3,7 @@ package com.mkr;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -44,7 +45,11 @@ class CalculatorTest {
     @DisplayName("Test Integer Division") // Override the class-level display name and method name for this test
 //    @Test
     @ParameterizedTest
-    @MethodSource()
+//    @MethodSource()
+    @CsvSource( {
+            "10, 5, 2",
+            "12, 4, 3"
+    })
     void testIntegerDivision_WhenDividendIsDividedByDivisor_ShouldReturnSuccess(int dividend, int divisor, int expectedResult) {
         // AAA - Arrange, Act, Assert
         // Arrange
