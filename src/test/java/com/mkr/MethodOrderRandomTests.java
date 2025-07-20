@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 
 //@TestMethodOrder(MethodOrderer.Random.class) // Random order for test execution
 //@TestMethodOrder(MethodOrderer.MethodName.class)
-@TestInstance(TestInstance.Lifecycle.PER_METHOD) // Default: new instance for each method
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // Default: new instance for each method
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MethodOrderRandomTests {
 
