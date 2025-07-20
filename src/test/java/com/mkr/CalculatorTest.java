@@ -3,6 +3,7 @@ package com.mkr;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -46,10 +47,11 @@ class CalculatorTest {
 //    @Test
     @ParameterizedTest
 //    @MethodSource()
-    @CsvSource( {
-            "10, 5, 2",
-            "12, 4, 3"
-    })
+//    @CsvSource( {
+//            "10, 5, 2",
+//            "12, 4, 3"
+//    })
+    @CsvFileSource(resources = "/integerDivision.csv")
     void testIntegerDivision_WhenDividendIsDividedByDivisor_ShouldReturnSuccess(int dividend, int divisor, int expectedResult) {
         // AAA - Arrange, Act, Assert
         // Arrange
