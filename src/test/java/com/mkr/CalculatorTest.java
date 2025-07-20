@@ -1,6 +1,11 @@
 package com.mkr;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,14 +42,18 @@ class CalculatorTest {
     }
 
     @DisplayName("Test Integer Division") // Override the class-level display name and method name for this test
-    @Test
-    void testIntegerDivision_WhenDividendIsDividedByDivisor_ShouldReturnSuccess() {
+//    @Test
+    @ParameterizedTest
+    @MethodSource()
+    void testIntegerDivision_WhenDividendIsDividedByDivisor_ShouldReturnSuccess(int dividend, int divisor, int expectedResult) {
         // AAA - Arrange, Act, Assert
         // Arrange
 //        Calculator calculator = new Calculator();
-        int dividend = 10;
-        int divisor = 5;
-        int expectedResult = 2;
+//        int dividend = 10;
+//        int divisor = 5;
+//        int expectedResult = 2;
+
+        System.out.println("Integer Division Test: " + dividend + " / " + divisor + " = " + expectedResult);
 
         // Act
         int result = calculator.integerDivision(dividend, divisor);
@@ -68,6 +77,15 @@ class CalculatorTest {
 //
 //        // Test division by one
 //        assertEquals(10, calculator.integerDivision(10, 1));
+    }
+
+    static Stream<Arguments> testIntegerDivision_WhenDividendIsDividedByDivisor_ShouldReturnSuccess() {
+        return Stream.of(
+                Arguments.of(10, 5, 2),
+                Arguments.of(9, 3, 3),
+                Arguments.of(20, 4, 5),
+                Arguments.of(15, 3, 5)
+        );
     }
 
 //    @Disabled
