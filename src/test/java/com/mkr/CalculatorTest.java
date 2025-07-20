@@ -2,10 +2,7 @@ package com.mkr;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
@@ -93,6 +90,13 @@ class CalculatorTest {
                 Arguments.of(20, 4, 5),
                 Arguments.of(15, 3, 5)
         );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"John","Jr"})
+    void valueSourceTest(String firstName) {
+        System.out.println("Value Source Test: " + firstName);
+        assertNotNull(firstName, "First name should not be null");
     }
 
 //    @Disabled
