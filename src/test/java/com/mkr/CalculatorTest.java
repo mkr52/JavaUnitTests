@@ -102,9 +102,16 @@ class CalculatorTest {
 //    @Disabled
     @DisplayName("Division by Zero Exception")
 //    @Test
-    @RepeatedTest(2)
-    void testIntegerDivision_WhenDivisorIsZero_ShouldThrowArithmeticException() {
+//    @RepeatedTest(2)
+    @RepeatedTest(value = 2, name = "{displayName} - {currentRepetition} of {totalRepetitions}")
+    void testIntegerDivision_WhenDivisorIsZero_ShouldThrowArithmeticException(
+            RepetitionInfo repetitionInfo,
+            TestInfo testInfo
+    ) {
 //        Calculator calculator = new Calculator();
+        System.out.println("Test Info: " + testInfo.getTestMethod().get().getName());
+        System.out.println("Repetition: " + repetitionInfo.getCurrentRepetition() + " of " +
+                repetitionInfo.getTotalRepetitions());
 
         // Test division by zero
         ArithmeticException exception = assertThrows(ArithmeticException.class, () -> {
