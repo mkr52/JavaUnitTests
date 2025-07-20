@@ -101,7 +101,8 @@ class CalculatorTest {
 
 //    @Disabled
     @DisplayName("Division by Zero Exception")
-    @Test
+//    @Test
+    @RepeatedTest(2)
     void testIntegerDivision_WhenDivisorIsZero_ShouldThrowArithmeticException() {
 //        Calculator calculator = new Calculator();
 
