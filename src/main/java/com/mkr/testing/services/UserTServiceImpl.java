@@ -17,6 +17,10 @@ public class UserTServiceImpl implements UserTService {
             throw new IllegalArgumentException("First name cannot blank");
         }
 
+        if(email.length() < 8 || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email address");
+        }
+
         return new User(firstName, lastName, email, UUID.randomUUID().toString());
 
     }

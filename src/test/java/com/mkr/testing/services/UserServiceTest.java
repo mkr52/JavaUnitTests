@@ -53,12 +53,29 @@ public class UserServiceTest {
     void testCreateUser_whenFirstNameIsEmpty_throwsIllegalArgumentException() {
         // Arrange
         firstName = "";
+        email = "abv.com";
         String expectedExceptionMessage = "First name cannot blank";
 
         //Act & Assert
         IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             userService.createUser(firstName, lastName, email, password, repeatedPassword);
         }, "Empty first name should throw an Illegal Argument exception");
+
+        // Assert
+        assertEquals(expectedExceptionMessage, thrown.getMessage(), "Exception message should match");
+    }
+
+    @DisplayName("Invalid email throws exception")
+    @Test
+    void testCreateUser_whenEmailIsInvalid_throwsIllegalArgumentException() {
+        // Arrange
+        email = "abv.com";
+        String expectedExceptionMessage = "Invalid email address";
+
+        //Act & Assert
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatedPassword);
+        }, "Invalid email should throw an Illegal Argument exception");
 
         // Assert
         assertEquals(expectedExceptionMessage, thrown.getMessage(), "Exception message should match");
