@@ -32,7 +32,13 @@ public class UserTServiceImpl implements UserTService {
 
         User user = new User(firstName, lastName, email, UUID.randomUUID().toString());
 
-        boolean isUserCreated = userRepository.save(user);
+        boolean isUserCreated;
+
+        try {
+            isUserCreated = userRepository.save(user);
+        } catch (RuntimeException e) {
+            throw new UserServiceException((e.getMessage()));
+        }
 
         if(!isUserCreated) throw new UserServiceException("Could not create user")
 ;

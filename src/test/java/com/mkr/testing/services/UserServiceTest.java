@@ -12,8 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -94,5 +93,19 @@ public class UserServiceTest {
 
         // Assert
         assertEquals(expectedExceptionMessage, thrown.getMessage(), "Exception message should match");
+    }
+
+    @DisplayName("If save() method throws RuntimeException, UserServiceException is thrown")
+    @Test
+    void testCreateUser_whenSaveMethodThrowsException_thenThrowUserServiceException() {
+        // Arrange
+        when(userRepository.save(any(User.class))).thenThrow(RuntimeException.class);
+
+        // Act & Assert
+        assertThrows(UserServiceException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatedPassword);
+        }, "Should have thrown UserServiceException instead");
+
+        //Assert
     }
 }
