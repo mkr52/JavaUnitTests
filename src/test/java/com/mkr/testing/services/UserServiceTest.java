@@ -1,18 +1,29 @@
 package com.mkr.testing.services;
 
-import com.mkr.service.UserService;
+import com.mkr.testing.data.UserRepository;
 import com.mkr.testing.models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-    UserTService userService;
+    @InjectMocks
+    UserTServiceImpl userService;
+
+    @Mock
+    UserRepository userRepository;
+
     String firstName;
     String lastName;
     String email;
@@ -21,7 +32,6 @@ public class UserServiceTest {
 
     @BeforeEach
     void init() {
-        userService = new UserTServiceImpl();
         firstName = "John";
         lastName = "Dow";
         email = "JDow@gemail.com";
@@ -33,6 +43,7 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
         // Arrange
+        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(true);
 
         //Act
         User createdUser = userService.createUser(firstName, lastName, email, password, repeatedPassword);
