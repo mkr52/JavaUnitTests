@@ -23,6 +23,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.18.0</version>
+            <scope>test</scope>
+        </dependency>
+
 <!--        &lt;!&ndash; AssertJ &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.assertj</groupId>-->
