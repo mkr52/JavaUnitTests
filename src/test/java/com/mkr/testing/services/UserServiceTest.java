@@ -1,29 +1,66 @@
 package com.mkr.testing.services;
 
+import com.mkr.service.UserService;
 import com.mkr.testing.models.User;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserServiceTest {
 
+    UserTService userService;
+    String firstName;
+    String lastName;
+    String email;
+    String password;
+    String repeatedPassword;
+
+    @BeforeEach
+    void init() {
+        userService = new UserTServiceImpl();
+        firstName = "John";
+        lastName = "Dow";
+        email = "JDow@gemail.com";
+        password = "password123";
+        repeatedPassword = "password123";
+    }
+
+    @DisplayName("User created")
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
         // Arrange
-        UserTService userService = new UserTServiceImpl();
-        // This is a placeholder for the actual user details that would be provided
-        // in a real test scenario, such as a User object or user details map.
-        String firstName = "John";
-        String lastName = "Dow";
-        String email = "JDow@gemail.com";
-        String password = "password123";
-        String repeatedPassword = "password123";
 
         //Act
         User createdUser = userService.createUser(firstName, lastName, email, password, repeatedPassword);
 
         // Assert
         assertNotNull(createdUser, "Created user should not be null");
+        assertEquals(firstName, createdUser.getFirstName(),
+                "User first name should match the provided first name");
+        assertEquals(lastName, createdUser.getLastName(),
+                "User last name should match the provided last name");
+        assertEquals(email, createdUser.getEmail(),
+                "User email should match the provided email");
+        assertNotNull(createdUser.getId(), "User ID should not be null");
+    }
 
+    @DisplayName("Empty first name throws exception")
+    @Test
+    void testCreateUser_whenFirstNameIsEmpty_throwsIllegalArgumentException() {
+        // Arrange
+        firstName = "";
+        String expectedExceptionMessage = "First name cannot blank";
+
+        //Act & Assert
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatedPassword);
+        }, "Empty first name should throw an Illegal Argument exception");
+
+        // Assert
+        assertEquals(expectedExceptionMessage, thrown.getMessage(), "Exception message should match");
     }
 }
