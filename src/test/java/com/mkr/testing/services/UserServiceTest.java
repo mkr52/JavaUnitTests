@@ -136,4 +136,23 @@ public class UserServiceTest {
         verify(emailVerificationService, times(1))
                 .scheduleEmailVerification(any(User.class));
     }
+
+    @DisplayName("Schedule email confirmation is executed")
+    @Test
+    void testCreateUser_whenUserCreated_schedulesEmailConfirmation() {
+
+        // Arrange
+        when(userRepository.save(any(User.class))).thenReturn(true);
+
+        doCallRealMethod().when(emailVerificationService)
+                .scheduleEmailVerification(any(User.class));
+
+        // Act
+        userService.createUser(firstName, lastName, email, password, repeatedPassword);
+
+        // Assert
+        verify(emailVerificationService, times(1))
+                .scheduleEmailVerification(any(User.class));
+
+    }
 }
