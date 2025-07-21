@@ -9,9 +9,12 @@ import java.util.UUID;
 public class UserTServiceImpl implements UserTService {
 
     private final UserRepository userRepository;
+    private final EmailVerificationService emailVerificationService;
 
-    public UserTServiceImpl(UserRepository userRepository) {
+    public UserTServiceImpl(UserRepository userRepository,
+                            EmailVerificationService emailVerificationService) {
         this.userRepository = userRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Override
@@ -40,8 +43,14 @@ public class UserTServiceImpl implements UserTService {
             throw new UserServiceException((e.getMessage()));
         }
 
-        if(!isUserCreated) throw new UserServiceException("Could not create user")
-;
+        if(!isUserCreated) throw new UserServiceException("Could not create user");
+
+        try {
+            emailVerificationService.scheduleEmailVerification(user);
+        } catch (RuntimeException e) {
+            throw new UserServiceException(e.getMessage());
+        }
+
         return user;
 
     }
