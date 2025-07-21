@@ -123,6 +123,10 @@ public class UserServiceTest {
                 .when(emailVerificationService)
                 .scheduleEmailVerification(any(User.class));
 
+        // Overrides the previous stub method
+//        doNothing().when(emailVerificationService)
+//                .scheduleEmailVerification(any(User.class));
+
         // Act & Assert
         assertThrows(UserServiceException.class, () -> {
             userService.createUser(firstName, lastName, email, password, repeatedPassword);
