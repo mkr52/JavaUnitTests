@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -43,7 +44,7 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
         // Arrange
-        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(true);
+        Mockito.when(userRepository.save(any(User.class))).thenReturn(true);
 
         //Act
         User createdUser = userService.createUser(firstName, lastName, email, password, repeatedPassword);
@@ -57,6 +58,9 @@ public class UserServiceTest {
         assertEquals(email, createdUser.getEmail(),
                 "User email should match the provided email");
         assertNotNull(createdUser.getId(), "User ID should not be null");
+
+        Mockito.verify(userRepository, times(1))
+                .save(any(User.class));
     }
 
     @DisplayName("Empty first name throws exception")
