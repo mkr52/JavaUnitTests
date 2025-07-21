@@ -63,10 +63,9 @@
                 <version>3.1.2</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.18.0/mockito-core-5.18.0.jar"
-<!--                        mockito-agent/5.2.0/mockito-agent-5.2.0.jar"-->
-                    </argLine>
+<!--                    <argLine>-->
+<!--                        ${jacoco.argLine} -javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.18.0/mockito-core-5.18.0.jar"-->
+<!--                    </argLine>-->
 <!--                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>-->
                     <includes>
                         <include>**/*Test.java</include>
@@ -79,6 +78,26 @@
                 <version>3.1.2</version>
                 <executions>
                     <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
